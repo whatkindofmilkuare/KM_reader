@@ -46,7 +46,7 @@ def process_data(data: bytes):
     print(f"DO:\t{ibnr2}")
 
 # Przykładowe dane wejściowe (base64)
-base64_data = "<DATA_FROM_TICKET_QR_CODE>"
+base64_data = "AAAyMgAAAAAWB9QAAQBHAABmxJZ7ZsWtImbGeq0AFgAWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
 
 # Dekodowanie base64 do surowych bajtów
 data = base64.b64decode(base64_data)
