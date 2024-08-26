@@ -2,33 +2,33 @@
 
 ## Opis
 
-Programy python służą do odczytywania i generowania informacji na podstawie ciągów znakowych zakodowanych w base64 obecnych w biletach kolejowych przewoźnika `Koleje Mazowieckie`.
+Programy służą do odczytywania i generowania informacji na podstawie ciągów znakowych zakodowanych w base64 obecnych w biletach kolejowych przewoźnika `Koleje Mazowieckie`.
 
-To repozytorium zawiera dwa programy w języku Python:
-1. **Generator Zakodowanych Danych** (`data_generator.py`) - Służy do generowania danych w formacie base64 na podstawie danych wejściowych podanych przez użytkownika.
-2. **Dekoder Danych** (`data_decoder.py`) - Odpowiedzialny za dekodowanie wygenerowanych wcześniej danych i wyświetlanie ich w czytelnej formie.
+To repozytorium zawiera dwa programy w języku JavaScript:
+1. **Generator Zakodowanych Danych** (`data_generator.js`) - Służy do generowania danych w formacie base64 na podstawie danych wejściowych podanych przez użytkownika.
+2. **Dekoder Danych** (`data_decoder.js`) - Odpowiedzialny za dekodowanie wygenerowanych wcześniej danych i wyświetlanie ich w czytelnej formie.
 
 ## Zawartość
 
-- `data_generator.py`: Skrypt do generowania zakodowanych danych w formacie base64.
-- `data_decoder.py`: Skrypt do dekodowania i wyświetlania danych zakodowanych przez `data_generator.py`.
+- `data_generator.js`: Skrypt do generowania zakodowanych danych w formacie base64.
+- `data_decoder.js`: Skrypt do dekodowania i wyświetlania danych zakodowanych przez `data_generator.js`.
 - `README.md`: Plik z opisem repozytorium i instrukcjami.
 
 ## Wymagania
 
-- Python 3.7 lub nowszy
+- Node.js zainstalowany na Twoim systemie.
 
 ## Jak używać
 
-### 1. Generator Zakodowanych Danych (`data_generator.py`)
+### 1. Generator Zakodowanych Danych (`data_generator.js`)
 
 Ten program pozwala na wygenerowanie ciągu znaków zakodowanego w formacie base64 o rozmiarze 94 bajty. Aby uruchomić program, wykonaj następujące kroki:
 
-1. Upewnij się, że masz zainstalowanego Pythona.
+1. Upewnij się, że masz zainstalowanego Node.js.
 2. Uruchom program za pomocą terminala:
 
    ```bash
-   python3 data_generator.py
+   node data_generator.js
    ```
 3. Program:
 
@@ -47,15 +47,15 @@ Ten program pozwala na wygenerowanie ciągu znaków zakodowanego w formacie base
     <zakodowany_ciag_base64>
    ```
 
-### 2. Dekoder Zakodowanych Danych (`data_decoder.py`)
+### 2. Dekoder Zakodowanych Danych (`data_decoder.js`)
 
 Ten program pozwala na dekodowanie ciągu znaków zakodowanego w formacie base64 o rozmiarze 94 bajty. Aby uruchomić program, wykonaj następujące kroki:
 
-1. Upewnij się, że masz zainstalowanego Pythona.
+1. Upewnij się, że masz zainstalowanego Node.js.
 2. Uruchom program za pomocą terminala:
 
    ```bash
-   python3 data_decoder.py
+   node data_decoder.js
    ```
 3. Program:
 
@@ -76,4 +76,3 @@ Ten program pozwala na dekodowanie ciągu znaków zakodowanego w formacie base64
 ## Licencja
 
 To oprogramowanie jest dostępne na zasadach MIT License. Więcej w pliku `LICENSE`.
-    
