@@ -2,6 +2,8 @@
 
 ## Opis
 
+Programy python służą do odczytywania i generowania informacji na podstawie ciągów znakowych zakodowanych w base64 obecnych w biletach kolejowych przewoźnika `Koleje Mazowieckie`.
+
 To repozytorium zawiera dwa programy w języku Python:
 1. **Generator Zakodowanych Danych** (`data_generator.py`) - Służy do generowania danych w formacie base64 na podstawie danych wejściowych podanych przez użytkownika.
 2. **Dekoder Danych** (`data_decoder.py`) - Odpowiedzialny za dekodowanie wygenerowanych wcześniej danych i wyświetlanie ich w czytelnej formie.
