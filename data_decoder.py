@@ -16,8 +16,9 @@ def decode_base64_data(encoded_data):
         return
     
     try:
-        # Parsowanie danych
+        # Parsowanie danychnumer = data[3:5].decode('utf-8', errors='ignore')
         numer = data[3:5].decode('utf-8', errors='ignore')  # Może nie być w UTF-8, dlatego ignorujemy błędy
+        inverted_numer = numer[::-1]
         series = struct.unpack("<I", data[5:9])[0]
         price = struct.unpack("<H", data[9:11])[0] / 100
         OF = struct.unpack("B", data[12:13])[0]
@@ -40,7 +41,7 @@ def decode_base64_data(encoded_data):
         kon_date = (start_date + timedelta(seconds=kon)).strftime('%Y-%m-%d %H:%M:%S')
 
         # Wyświetlanie zdekodowanych danych
-        print(f"Numer: {numer}")
+        print(f"Numer: {inverted_numer}")
         print(f"Numer serii: {series}")
         print(f"Cena: {price:.2f} zł")
         print(f"OF: {OF}")
