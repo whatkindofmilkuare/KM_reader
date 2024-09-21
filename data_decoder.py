@@ -28,8 +28,8 @@ def decode_base64_data(encoded_data):
         pocz = struct.unpack("<I", data[20:24])[0]   # Czas rozpoczęcia (4 bajty, unsigned int)
         kon = struct.unpack("<I", data[24:28])[0]    # Czas zakończenia (4 bajty, unsigned int)
         
-        ibnr1 = struct.unpack("<H", data[29:31])[0]  # IBNR1 (2 bajty, unsigned short)
-        ibnr2 = struct.unpack("<H", data[31:33])[0]  # IBNR2 (2 bajty, unsigned short)
+        ibnr1 = struct.unpack("<H", data[28:30])[0]  # IBNR1 (2 bajty, unsigned short)
+        ibnr2 = struct.unpack("<H", data[30:32])[0]  # IBNR2 (2 bajty, unsigned short)
 
         # Data początkowa - północ 1 stycznia 2010
         start_date = datetime(2010, 1, 1)
