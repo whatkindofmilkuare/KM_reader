@@ -1,52 +1,63 @@
 import struct
-from datetime import datetime
 import base64
+from datetime import datetime
 
-# Stała referencyjna: 01-01-2010 00:00:00 CEST (w sekundach od 1970-01-01 00:00:00 UTC)
-REF = 1234
-
-def format_time_to_timestamp(time_str):
-    dt = datetime.strptime(time_str, "%d-%m-%Y, %H:%M:%S")
-    timestamp = int(dt.timestamp())
-    return timestamp - REF + 7200
-
-def create_data():
-    # Pobranie danych od użytkownika
-    numer = input("Podaj numer (2 znaki): ").encode()
-    series = int(input("Podaj numer serii (liczba całkowita): "))
-    price = int(float(input("Podaj cenę (zł): ")) * 100)
-    OF = int(input("Podaj wartość OF (liczba całkowita): "))
-    disc = int(input("Podaj ulgę (liczba całkowita): "))
+def encode_to_base64(numer, series, price, OF, disc, kupno_date, pocz_date, kon_date, ibnr1, ibnr2):
+    # Sprawdzanie długości numeru (minimum 2 znaki)
+    numer = numer[:2] if len(numer) >= 2 else numer.ljust(2, '\x00')
     
-    kupno = format_time_to_timestamp(input("Podaj czas kupna (dd-mm-yyyy, hh:mm:ss): "))
-    pocz = format_time_to_timestamp(input("Podaj czas rozpoczęcia (dd-mm-yyyy, hh:mm:ss): "))
-    kon = format_time_to_timestamp(input("Podaj czas zakończenia (dd-mm-yyyy, hh:mm:ss): "))
+    # Odwracanie numeru
+    inverted_numer = numer[::-1]
+
+    # Zmiana cen z formatu zł na grosze
+    price_in_grosze = int(price * 100)
+
+    # Parsowanie dat do liczby sekund od 1 stycznia 2010
+    start_date = datetime(2010, 1, 1)
+    kupno_seconds = int((kupno_date - start_date).total_seconds())
+    pocz_seconds = int((pocz_date - start_date).total_seconds())
+    kon_seconds = int((kon_date - start_date).total_seconds())
+
+    # Zbudowanie struktury binarnej
+    try:
+        data = (
+            b'\x00\x00\x00' +                     # 3 bajty paddingu
+            inverted_numer.encode('utf-8') +      # Numer (2 bajty)
+            struct.pack("<I", series) +           # Numer serii (4 bajty, unsigned int)
+            struct.pack("<H", price_in_grosze) +  # Cena (2 bajty, unsigned short)
+            b'\x00' +                             # 1 bajt paddingu
+            struct.pack("B", OF) +                # OF (1 bajt)
+            b'\x00' +                             # 1 bajt paddingu
+            struct.pack("B", disc) +              # Ulga (1 bajt)
+            b'\x00' +                             # 1 bajt paddingu
+            struct.pack("<I", kupno_seconds) +    # Czas kupna (4 bajty, unsigned int)
+            struct.pack("<I", pocz_seconds) +     # Czas rozpoczęcia (4 bajty, unsigned int)
+            struct.pack("<I", kon_seconds) +      # Czas zakończenia (4 bajty, unsigned int)
+            struct.pack("<H", ibnr1) +            # IBNR1 (2 bajty, unsigned short)
+            struct.pack("<H", ibnr2)              # IBNR2 (2 bajty, unsigned short)
+        )
+        
+        # Kodowanie do Base64
+        encoded_data = base64.b64encode(data).decode('utf-8')
+        print(f"Zakodowane dane Base64: {encoded_data}")
     
-    ibnr1 = int(input("Podaj wartość IBNR1 (liczba całkowita): "))
-    ibnr2 = int(input("Podaj wartość IBNR2 (liczba całkowita): "))
+    except struct.error as e:
+        print(f"Błąd podczas budowania danych: {e}")
 
-    # Składanie danych w odpowiedniej kolejności
-    data = b'\x00' * 2  # Placeholder dla pierwszych 2 bajtów
-    data += numer  # Numer (2 bajty)
-    data += b'\x00'  # Placeholder dla 1 bajtu
-    data += struct.pack(">I", series)  # Numer serii (4 bajty)
-    data += struct.pack(">H", price)  # Cena biletu (2 bajty)
-    data += b'\x00'  # Placeholder dla 1 bajtu
-    data += struct.pack("B", OF)  # OF (1 bajt)
-    data += b'\x00'  # Placeholder dla 1 bajtu
-    data += struct.pack("B", disc)  # Ulga (1 bajt)
-    data += b'\x00' * 2  # Placeholder dla 2 bajtów
-    data += struct.pack(">I", kupno)  # Czas kupna biletu (4 bajty)
-    data += struct.pack(">I", pocz)  # Czas rozpoczęcia ważności biletu (4 bajty)
-    data += struct.pack(">I", kon)  # Czas zakończenia ważności biletu (4 bajty)
-    data += struct.pack(">H", ibnr1)  # Numer stacji początkowej (2 bajty)
-    data += struct.pack(">H", ibnr2)  # Numer stacji końcowej (2 bajty)
-    data += b'\x00' * (94 - len(data))  # Uzupełnienie danych do 94 bajtów
+# Zbieranie danych od użytkownika
+numer = input("Podaj numer (2 znaki): ")
+series = int(input("Podaj numer serii: "))
+price = float(input("Podaj cenę (zł): "))
+OF = int(input("Podaj OF (0-255): "))
+disc = int(input("Podaj ulgę (0-255): "))
 
-    # Kodowanie danych do base64
-    base64_data = base64.b64encode(data).decode()
-    print("Zakodowane dane w base64:")
-    print(base64_data)
+# Podanie dat w formacie 'YYYY-MM-DD HH:MM:SS'
+kupno_date = datetime.strptime(input("Podaj datę kupna (YYYY-MM-DD HH:MM:SS): "), '%Y-%m-%d %H:%M:%S')
+pocz_date = datetime.strptime(input("Podaj datę rozpoczęcia (YYYY-MM-DD HH:MM:SS): "), '%Y-%m-%d %H:%M:%S')
+kon_date = datetime.strptime(input("Podaj datę zakończenia (YYYY-MM-DD HH:MM:SS): "), '%Y-%m-%d %H:%M:%S')
 
-# Generowanie zakodowanych danych
-create_data()
+ibnr1 = int(input("Podaj IBNR1 (0-65535): "))
+ibnr2 = int(input("Podaj IBNR2 (0-65535): "))
+
+# Zakodowanie danych
+encode_to_base64(numer, series, price, OF, disc, kupno_date, pocz_date, kon_date, ibnr1, ibnr2)
