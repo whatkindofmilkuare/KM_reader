@@ -37,6 +37,15 @@ def encode_to_base64(numer, series, price, OF, disc, kupno_date, pocz_date, kon_
             struct.pack("<H", ibnr2)              # IBNR2 (2 bajty, unsigned short)
         )
         
+        # Sprawdzenie długości danych i dodanie paddingu, aby miały co najmniej 33 bajty
+        if len(data) < 33:
+            data += b'\x00' * (33 - len(data))
+
+        # Dodanie paddingu, aby długość była podzielna przez 4
+        padding_length = len(data) % 4
+        if padding_length != 0:
+            data += b'\x00' * (4 - padding_length)
+
         # Kodowanie do Base64
         encoded_data = base64.b64encode(data).decode('utf-8')
         print(f"Zakodowane dane Base64: {encoded_data}")
