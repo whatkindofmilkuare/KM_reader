@@ -89,4 +89,4 @@ To oprogramowanie jest dostępne na zasadach MIT License. Więcej w pliku `LICEN
 
 ## Podziękowania 
 
-Szczególne podziękowania należą się użytkownikowi @sp5wwp
+Szczególne podziękowania należą się użytkownikowi @sp5wwp. Ten projekt był bazowany na jego repozytorium parsera danych napisanego w języku C.
