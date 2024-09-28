@@ -22,7 +22,7 @@ To repozytorium zawiera dwa programy w języku Python:
 
 ### 1. Generator Zakodowanych Danych (`data_generator.py`)
 
-Ten program pozwala na wygenerowanie ciągu znaków zakodowanego w formacie base64 o rozmiarze 94 bajty. Aby uruchomić program, wykonaj następujące kroki:
+Nowa wersja programu pozwala na generowanie ciągu znaków zakodowanego w formacie base64, zawierającego podstawowe dane, takie jak numer, seria, cena, oraz daty. Aby uruchomić program, wykonaj następujące kroki:
 
 1. Upewnij się, że masz zainstalowanego Pythona.
 2. Uruchom program za pomocą terminala:
@@ -30,26 +30,36 @@ Ten program pozwala na wygenerowanie ciągu znaków zakodowanego w formacie base
    ```bash
    python3 data_generator.py
    ```
-3. Program:
+3. Program poprosi o wprowadzenie danych:
 
    ```bash
-    Podaj numer (2 znaki): AB
-    Podaj numer serii (liczba całkowita): 123456
-    Podaj cenę (zł): 12.34
-    Podaj wartość OF (liczba całkowita): 2
-    Podaj ulgę (liczba całkowita): 1
-    Podaj czas kupna (dd-mm-yyyy, hh:mm:ss): 26-08-2024, 12:00:00
-    Podaj czas rozpoczęcia (dd-mm-yyyy, hh:mm:ss): 26-08-2024, 12:30:00
-    Podaj czas zakończenia (dd-mm-yyyy, hh:mm:ss): 26-08-2024, 13:00:00
-    Podaj wartość IBNR1 (liczba całkowita): 100
-    Podaj wartość IBNR2 (liczba całkowita): 200
-    Zakodowane dane w base64:
-    <zakodowany_ciag_base64>
+   Podaj numer (2 znaki): AB
+   Podaj numer serii: 123456
+   Podaj cenę (zł): 12.34
+   Podaj OF (0-255): 2
+   Podaj ulgę (0-255): 1
+   Podaj datę kupna (YYYY-MM-DD HH:MM:SS): 2024-08-26 12:00:00
+   Podaj datę rozpoczęcia (YYYY-MM-DD HH:MM:SS): 2024-08-26 12:30:00
+   Podaj datę zakończenia (YYYY-MM-DD HH:MM:SS): 2024-08-26 13:00:00
+   Podaj IBNR1 (0-65535): 100
+   Podaj IBNR2 (0-65535): 200
    ```
+
+4. Program zakoduje dane do formatu base64 i wyświetli wynik:
+
+   ```bash
+   Zakodowane dane Base64: <zakodowany_ciag_base64>
+   ```
+
+#### Zmiany w nowej wersji:
+- **Odwracanie numeru**: Program teraz odwraca wprowadzony numer, co jest zgodne z nowymi wymaganiami dekodera.
+- **Cena**: Cena jest przeliczana na grosze i kodowana w dwóch bajtach.
+- **Formatowanie dat**: Daty kupna, rozpoczęcia i zakończenia są przeliczane do liczby sekund od północy 1 stycznia 2010 roku.
+- **IBNR1 i IBNR2**: Wartości IBNR są kodowane w dwóch bajtach każdy (unsigned short).
 
 ### 2. Dekoder Zakodowanych Danych (`data_decoder.py`)
 
-Ten program pozwala na dekodowanie ciągu znaków zakodowanego w formacie base64 o rozmiarze 94 bajty. Aby uruchomić program, wykonaj następujące kroki:
+Ten program pozwala na dekodowanie ciągu znaków zakodowanego w formacie base64. Aby uruchomić program, wykonaj następujące kroki:
 
 1. Upewnij się, że masz zainstalowanego Pythona.
 2. Uruchom program za pomocą terminala:
@@ -62,18 +72,21 @@ Ten program pozwala na dekodowanie ciągu znaków zakodowanego w formacie base64
    ```bash
    Podaj zakodowane dane w base64: <zakodowany_ciag_base64>
    Długość danych po dekodowaniu: 94 bajtów
-   NUMER:  AB00123456
-   CENA:   12.34
+   NUMER:  BA
+   CENA:   12.34 zł
    OF:     2
    ULGA:   1
-   KUPNO:  26-08-2024, 12:00:00
-   POCZ.:  26-08-2024, 12:30:00
-   KON.:   26-08-2024, 13:00:00
-   OD:     100
-   DO:     200
+   KUPNO:  2024-08-26 12:00:00
+   POCZ.:  2024-08-26 12:30:00
+   KON.:   2024-08-26 13:00:00
+   IBNR1:  100
+   IBNR2:  200
    ```
 
 ## Licencja
 
 To oprogramowanie jest dostępne na zasadach MIT License. Więcej w pliku `LICENSE`.
-    
+
+## Podziękowania 
+
+Szczególne podziękowania należą się użytkownikowi @sp5wwp
