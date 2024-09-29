@@ -53,6 +53,19 @@ def encode_to_base64(numer, series, price, OF, disc, kupno_date, pocz_date, kon_
     except struct.error as e:
         print(f"Błąd podczas budowania danych: {e}")
 
+ascii_art = """
+  _  ____  __                      _           
+ | |/ /  \/  |                    | |          
+ | ' /| \  / |  _ __ ___  __ _  __| | ___ _ __ 
+ |  < | |\/| | | '__/ _ \/ _` |/ _` |/ _ \ '__|     coded by @whatkindofmiluare
+ | . \| |  | | | | |  __/ (_| | (_| |  __/ |   
+ |_|\_\_|  |_| |_|  \___|\__,_|\__,_|\___|_|   
+           ______                              
+          |______|                             
+"""
+
+print(ascii_art)
+
 # Zbieranie danych od użytkownika
 numer = input("Podaj numer (2 znaki): ")
 series = int(input("Podaj numer serii: "))

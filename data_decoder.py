@@ -54,6 +54,17 @@ def decode_base64_data(encoded_data):
     except (struct.error, IndexError) as e:
         print(f"Błąd podczas parsowania danych: {e}")
 
-# Przykład użycia funkcji
+ascii_art = """
+  _  ____  __                      _           
+ | |/ /  \/  |                    | |          
+ | ' /| \  / |  _ __ ___  __ _  __| | ___ _ __ 
+ |  < | |\/| | | '__/ _ \/ _` |/ _` |/ _ \ '__|     coded by @whatkindofmiluare
+ | . \| |  | | | | |  __/ (_| | (_| |  __/ |   
+ |_|\_\_|  |_| |_|  \___|\__,_|\__,_|\___|_|   
+           ______                              
+          |______|                             
+"""
+
+print(ascii_art)
 encoded_data = input("Podaj zakodowane dane Base64: ")
 decode_base64_data(encoded_data)
