@@ -33,6 +33,15 @@ Nowa wersja programu pozwala na generowanie ciągu znaków zakodowanego w formac
 3. Program poprosi o wprowadzenie danych:
 
    ```bash
+    _  ____  __                      _           
+   | |/ /  \/  |                    | |          
+   | ' /| \  / |  _ __ ___  __ _  __| | ___ _ __ 
+   |  < | |\/| | | '__/ _ \/ _` |/ _` |/ _ \ '__|     coded by @whatkindofmiluare
+   | . \| |  | | | | |  __/ (_| | (_| |  __/ |   
+   |_|\_\_|  |_| |_|  \___|\__,_|\__,_|\___|_|   
+           ______                              
+          |______|   
+
    Podaj numer (2 znaki): AB
    Podaj numer serii: 123456
    Podaj cenę (zł): 12.34
@@ -70,6 +79,16 @@ Ten program pozwala na dekodowanie ciągu znaków zakodowanego w formacie base64
 3. Program:
 
    ```bash
+
+    _  ____  __                      _           
+   | |/ /  \/  |                    | |          
+   | ' /| \  / |  _ __ ___  __ _  __| | ___ _ __ 
+   |  < | |\/| | | '__/ _ \/ _` |/ _` |/ _ \ '__|     coded by @whatkindofmiluare
+   | . \| |  | | | | |  __/ (_| | (_| |  __/ |   
+   |_|\_\_|  |_| |_|  \___|\__,_|\__,_|\___|_|   
+           ______                              
+          |______| 
+
    Podaj zakodowane dane w base64: <zakodowany_ciag_base64>
    Długość danych po dekodowaniu: 94 bajtów
    NUMER:  BA
